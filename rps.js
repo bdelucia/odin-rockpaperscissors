@@ -112,7 +112,7 @@ buttons.forEach((button) => {
             if(computerScore > humanScore)
                 resultsDiv.textContent = "CPU wins!";
             if(computerScore === humanScore)
-                resultsDiv.textContent = "It twas a tie. Somehow. This shouldn't be possible"
+                resultsDiv.textContent = "It would appear we have a tie"
 
             gamesPlayed = 0;
             humanScore = 0;
