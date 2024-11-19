@@ -78,18 +78,8 @@ function playRound(humanChoice, computerChoice){
 }
 
 function playGame(humanChoice){
-    //for(let i = 0; i < 5; i++){
-        computerChoice = getComputerChoice()
-        //humanChoice = getHumanChoice()
-        playRound(humanChoice, computerChoice)
-    //}
-
-    if(humanScore > computerScore)
-        console.log(`Human wins with ${humanScore} wins, computer with ${computerScore} wins`)
-    else if (computerScore > humanScore)
-        console.log(`Computer wins with ${computerScore} wins, human with ${humanScore} wins`)
-    else
-        console.log("It was a tie.")
+    computerChoice = getComputerChoice()
+    playRound(humanChoice, computerChoice)
 }
 
 const buttons = document.querySelectorAll("button");
@@ -102,7 +92,7 @@ buttons.forEach((button) => {
     button.addEventListener("click", () => {
         playGame(button.textContent);
         gamesPlayed += 1;
-        
+
         gamesPlayedH3.textContent = "Game " + gamesPlayed + "/5";
         humanScoreDiv.textContent = "You: " + humanScore;
         cpuScoreDiv.textContent = "CPU: " + computerScore;
