@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+let gamesPlayed = 0;
 
 function getComputerChoice(){
     const randomInt = Math.floor(Math.random() * 3) + 1;
@@ -34,66 +35,54 @@ function getHumanChoice(){
 function playRound(humanChoice, computerChoice){
 
     if(humanChoice === "Rock" && computerChoice === "Rock")
-    {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
-        console.log("Tie")
-    }
+        resultsDiv.textContent = "Tie";
     if(humanChoice === "Paper" && computerChoice === "Paper")
-    {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
-        console.log("Tie")
-    }
+        resultsDiv.textContent = "Tie"
     if(humanChoice === "Scissors" && computerChoice === "Scissors")
-    {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
-        console.log("Tie")
-    }
+        resultsDiv.textContent = "Tie";
+
     if(humanChoice === "Rock" && computerChoice === "Paper")
     {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
         computerScore++;
-        console.log("Computer wins, paper beats rock")
+        resultsDiv.textContent = "CPU won that one";
     }
+        
     if(humanChoice === "Scissors" && computerChoice === "Rock")
     {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
         computerScore++;
-        console.log("Computer wins, rock beats scissors")
+        resultsDiv.textContent = "CPU won that one";
     }
+        
     if(humanChoice === "Paper" && computerChoice === "Scissors")
     {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
         computerScore++;
-        console.log("Computer wins, scissors beats paper")
+        resultsDiv.textContent = "CPU won that one";
     }
     if(humanChoice === "Rock" && computerChoice === "Scissors")
     {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
         humanScore++;
-        console.log("You win, rock beats scissors")
+        resultsDiv.textContent = "You won that one";
     }
     if(humanChoice === "Paper" && computerChoice === "Rock")
     {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
         humanScore++;
-        console.log("You win, paper beats rock")
+        resultsDiv.textContent = "You won that one";
     }
     if(humanChoice === "Scissors" && computerChoice === "Paper")
     {
-        console.log(`You picked ${humanChoice}, CPU picked ${computerChoice}.`)
         humanScore++;
-        console.log("You win, scissors beat paper")
+        resultsDiv.textContent = "You won that one";
     }
 
     return 0;
 }
 
-function playGame(){
-    for(let i = 0; i < 5; i++){
+function playGame(humanChoice){
+    //for(let i = 0; i < 5; i++){
         computerChoice = getComputerChoice()
-        humanChoice = getHumanChoice()
+        //humanChoice = getHumanChoice()
         playRound(humanChoice, computerChoice)
-    }
+    //}
 
     if(humanScore > computerScore)
         console.log(`Human wins with ${humanScore} wins, computer with ${computerScore} wins`)
@@ -102,4 +91,32 @@ function playGame(){
     else
         console.log("It was a tie.")
 }
-playGame()
+
+const buttons = document.querySelectorAll("button");
+const humanScoreDiv = document.querySelector(".humanScore");
+const cpuScoreDiv = document.querySelector(".cpuScore");
+const gamesPlayedH3 = document.querySelector(".gamesPlayed");
+const resultsDiv = document.querySelector(".results")
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playGame(button.textContent);
+        gamesPlayed += 1;
+        gamesPlayedH3.textContent = "Game " + gamesPlayed + "/5";
+        humanScoreDiv.textContent = "You: " + humanScore;
+        cpuScoreDiv.textContent = "CPU: " + computerScore;
+
+        if (gamesPlayed === 5){
+            if(humanScore > computerScore)
+                resultsDiv.textContent = "You win!";
+            if(computerScore > humanScore)
+                resultsDiv.textContent = "CPU wins!";
+            if(computerScore === humanScore)
+                resultsDiv.textContent = "It twas a tie. Somehow. This shouldn't be possible"
+
+            gamesPlayed = 0;
+            humanScore = 0;
+            computerScore = 0;
+        }
+    });
+})
