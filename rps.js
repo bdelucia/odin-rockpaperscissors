@@ -102,6 +102,7 @@ buttons.forEach((button) => {
     button.addEventListener("click", () => {
         playGame(button.textContent);
         gamesPlayed += 1;
+        
         gamesPlayedH3.textContent = "Game " + gamesPlayed + "/5";
         humanScoreDiv.textContent = "You: " + humanScore;
         cpuScoreDiv.textContent = "CPU: " + computerScore;
